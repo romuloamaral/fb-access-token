@@ -1,0 +1,169 @@
+{
+	"info": {
+		"name": "facebook",
+		"_postman_id": "7161b5a7-d212-d071-bbc6-c82ceb7f2aa5",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f595bb18-6058-40c2-81f6-c40864c4d5a8",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"var result = pm.response.json();",
+							"",
+							"pm.globals.set(\"post_id\", result.id);",
+							"",
+							"pm.test(\"Codigo da requisição retorna 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "message",
+							"value": "Hello, from postman!",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v2.12/me/feed?access_token={{fb_access_token}}",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v2.12",
+						"me",
+						"feed"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{fb_access_token}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "edit post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1b533902-75b3-40ae-a0ff-f5031f057d2a",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Codigo da requisição retorna 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Retorno da requisição contém campo sucesso : true\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.success).to.eql(true);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "message",
+							"value": "Hello, from another postman! [edited]",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v2.12/{{post_id}}?access_token={{fb_access_token}}",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v2.12",
+						"{{post_id}}"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{fb_access_token}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "7ff289a7-a3dd-4b2e-ae41-e927f3d21ab0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5339753d-7539-47fa-b01c-bc154256d8b1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "956e352c-de9a-49ae-b74f-0f6924b6b4c6",
+			"key": "access_token",
+			"value": "EAARBXqmF0igBACSSvJ23WOVAZCEVsXaHmh6a8NX5aj8r41sRyaDuuiPyJJmjAE4aOTSo9GCzRHAl06Eo4WTdu2SFjBRBkFCDCWa3sxr9e3YyPyU2hsy00pZCR3LzfJol8cRvr349evsk8fkZBNgUHpHYMhXDvcPoTQT80ogcwe2n2ZCq4YdxYpKYoL1knJAtHRNGmyiUIzTKrNOneOfO",
+			"type": "text"
+		}
+	]
+}

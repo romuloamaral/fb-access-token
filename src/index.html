@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Facebook Access Token Generator - Romulo Test App</title>
+  <base href="/">
+  <script async="" src="https://connect.facebook.net/en_US/fbevents.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/forms.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <app-root></app-root>
+
+  <script>
+    window.fbAsyncInit = function () {
+
+      FB.init({
+        appId: '1197774733693480',
+        cookie: true, // enable cookies to allow the server to access the session
+        xfbml: true, // parse social plugins on this page
+        version: 'v2.6' // use version 2.4
+      });
+
+    };
+
+
+
+    /**
+     *  Load the SDK asynchronously
+     *  
+     */
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id))
+        return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+
+    /**
+     * This function is called when someone finishes with the Login Button.
+     * See the onlogin handler attached to it in the sample code below.
+     * 
+     */
+    function FBLogin() {
+      FB.login(function (response) {
+        statusChangeCallback(response);
+      }, {
+          scope: "publish_actions"
+        });
+    }
+
+
+
+    /**
+     *  This is called with the results from from FB.getLoginStatus().
+     */
+    function statusChangeCallback(response) {
+      console.log('statusChangeCallback');
+      console.log(response);
+
+      if (response.status === 'connected') {
+        document.getElementById("title").innerHTML = response.authResponse.accessToken;
+      } else if (response.status === 'not_authorized') {
+        console.log('Please log into this app.');
+      } else {
+        console.log('Please log into Facebook.');
+      }
+    }
+
+  </script>
+</body>
+</html>
